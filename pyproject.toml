@@ -2,7 +2,7 @@
 name = "tama.backend"
 version = "0.1.0"
 description = ""
-authors = ["TuanHoang <hoangdt@icts.vn>"]
+authors = ["TuanHoang <tuanhoang2do2311@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
