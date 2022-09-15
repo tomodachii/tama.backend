@@ -22,5 +22,3 @@ celery -A main worker -l info -P gevent
 https://dev.to/couchcamote/git-branching-name-convention-cch
 
 https://dev.to/i5han3/git-commit-message-convention-that-you-can-follow-1709
-
-test
