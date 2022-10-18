@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build-and-test:
-
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -17,7 +16,7 @@ jobs:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-        
+
     steps:
       - name: Setup Python
         uses: actions/setup-python@v4.3.0
@@ -30,7 +29,7 @@ jobs:
       - name: psycopg2 prerequisites
         run: sudo apt-get --assume-yes install libpq-dev python-setuptools
       - name: Install dependencies
-        run: poetry install
+        run: poetry show
       - name: Run flake8
         run: poetry run flake8
       - name: Run tests
