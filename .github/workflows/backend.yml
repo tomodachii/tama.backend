@@ -18,28 +18,29 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - name: Setup Python
-        uses: actions/setup-python@v4.3.0
-        with:
-          python-version: 3.9
-      - name: Python Poetry Action
-        uses: abatilo/actions-poetry@v2.1.6
-        with:
-          poetry-version: 1.1.15
-      - name: psycopg2 prerequisites
-        run: sudo apt-get --assume-yes install libpq-dev python-setuptools
-      - name: Install dependencies
-        run: poetry show
-      - name: Run flake8
-        run: poetry run flake8
-      - name: Run tests
-        run: poetry run coverage run --source='.' manage.py test --noinput && poetry run coverage xml
-        env:
-          ENVIRONMENT: development
-          DJANGO_LOG_LEVEL: DEBUG
-          SECRET_KEY: 2dkvq6s&lin&tr
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-          POSTGRES_HOST: 127.0.0.1
-          POSTGRES_EXPOSE_PORT: 5432
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-python@v4
+          with:
+            python-version: 3.9
+        - name: Poetry
+          uses: abatilo/actions-poetry@v2
+          with:
+            poetry-version: 1.1.15
+        - name: psycopg2 prerequisites
+          run: sudo apt-get --assume-yes install libpq-dev python-setuptools
+        - name: Install dependencies
+          run: poetry install
+        - name: Run flake8
+          run: poetry run flake8
+        - name: Run tests
+          run: poetry run coverage run --source='.' manage.py test --noinput && poetry run coverage xml
+          env:
+            ENVIRONMENT: development
+            DJANGO_LOG_LEVEL: DEBUG
+            SECRET_KEY: 2dkvq6s&lin&tr
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: postgres
+            POSTGRES_HOST: 127.0.0.1
+            POSTGRES_EXPOSE_PORT: 5432
