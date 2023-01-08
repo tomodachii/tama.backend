@@ -1,4 +1,4 @@
-# tama.backend
+# chatoboto.backend
 # backend
 
 - cp .env.template .env
